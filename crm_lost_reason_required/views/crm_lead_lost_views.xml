@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_crm_lead_lost_inherit" model="ir.ui.view">
-        <field name="name">crm.lead.lost.form.inherit</field>
-        <field name="model">crm.lead.lost</field>
-        <!-- Replace with the CORRECT External ID from your database -->
-        <field name="inherit_id" ref="crm.crm_lead_lost_form_view"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='lost_reason_id']" position="attributes">
-                <attribute name="required">1</attribute>
-            </xpath>
-        </field>
-    </record>
+    <!-- 
+      No XML inheritance is needed. 
+      The 'required=True' attribute in the Python model (crm_lead.py) 
+      automatically makes the field required in the UI wizard.
+    -->
 </odoo>
