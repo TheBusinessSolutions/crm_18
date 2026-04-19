@@ -14,3 +14,10 @@ class CrmLead(models.Model):
             # If the record is inactive (lost) and no reason is set
             if not record.active and not record.lost_reason_id:
                 raise ValidationError(_("Please specify a Lost Reason before marking this opportunity as lost."))
+
+
+class CrmLeadLost(models.TransientModel):
+    _inherit = 'crm.lead.lost'
+
+    # Override the field to make it required by default in the wizard
+    lost_reason_id = fields.Many2one(required=True)
