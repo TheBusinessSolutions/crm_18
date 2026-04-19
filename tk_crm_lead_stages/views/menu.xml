@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="lead_stages"
+                  name="Lead Stages"
+                  parent="crm.menu_crm_config_lead"
+                  action="lead_stages_view_action"/>
+    </data>
+</odoo>

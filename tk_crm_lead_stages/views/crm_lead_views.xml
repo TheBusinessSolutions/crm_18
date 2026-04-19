@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="crm_lead_inherit_form_view" model="ir.ui.view">
+            <field name="name">crm.lead.inherit.form.view</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='stage_id']" position="after">
+                    <field name="lead_stage_id" widget="statusbar" options="{'clickable':'1'}"
+                           invisible="type != 'lead'"/>
+                </xpath>
+                <xpath expr="//field[@name='team_id']" position="after">
+                    <field name="is_won" invisible="type != 'lead'"/>
+                </xpath>
+                <xpath expr="//field[@name='is_won']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='%(crm.action_crm_lead2opportunity_partner)d']" position="attributes">
+                    <attribute name="invisible" add="not is_won or type != 'lead'" separator=" or "/>
+                </xpath>
+                <xpath expr="//header/button[@name='%(crm.action_crm_lead2opportunity_partner)d']" position="before">
+                    <button name="lead_won_stage"
+                            type="object"
+                            string="Won"
+                            class="oe_highlight"
+                            invisible="is_won == True or type != 'lead'"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_crm_lead_kanban_inherit_custom" model="ir.ui.view">
+            <field name="name">crm.lead.kanban.inherit.custom</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.view_crm_lead_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="inside">
+                    <field name="lead_stage_id"/>
+                </xpath>
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="class">o_kanban_small_column o_opportunity_kanban</attribute>
+                    <attribute name="on_create">false</attribute>
+                    <attribute name="create">false</attribute>
+                    <attribute name="group_create">false</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_crm_lead_search_inherit_custom" model="ir.ui.view">
+            <field name="name">crm.lead.search.inherit.custom</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.view_crm_case_leads_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field name="lead_stage_id"/>
+                </xpath>
+                <xpath expr="//group" position="inside">
+                    <filter name="stage_group_by" string="Lead Status" context="{'group_by':'lead_stage_id'}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="crm.crm_lead_all_leads" model="ir.actions.act_window">
+            <field name="context">{
+                'default_type': 'lead',
+                'search_default_type': 'lead',
+                'search_default_to_process': 1,
+                'search_default_stage_group_by': 1
+                }
+            </field>
+        </record>
+    </data>
+</odoo>

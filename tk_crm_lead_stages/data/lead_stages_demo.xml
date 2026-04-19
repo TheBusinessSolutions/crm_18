@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="lead_stage_data_one" model="lead.stages">
+            <field name="name">New</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="lead_stage_data_two" model="lead.stages">
+            <field name="name">Won</field>
+            <field name="sequence">2</field>
+            <field name="is_won">True</field>
+        </record>
+        <record id="lead_stage_data_three" model="lead.stages">
+            <field name="name">Lost</field>
+            <field name="sequence">3</field>
+        </record>
+        <record id="lead_stage_data_four" model="lead.stages">
+            <field name="name">Cancel</field>
+            <field name="sequence">4</field>
+        </record>
+    </data>
+</odoo>
